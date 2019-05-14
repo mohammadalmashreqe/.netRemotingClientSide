@@ -15,15 +15,22 @@ namespace Client
 
         static void Main(string[] args)
         {
-            HttpChannel httpChannel = new HttpChannel();
-            ChannelServices.RegisterChannel(httpChannel);
+            try    
+            {
+                HttpChannel httpChannel = new HttpChannel();
+                ChannelServices.RegisterChannel(httpChannel);
 
-            Type requiredType = typeof(MovieTicketInterface);
+                Type requiredType = typeof(MovieTicketInterface);
 
-            MovieTicketInterface remoteObject = (MovieTicketInterface)Activator.GetObject(requiredType,
-                "Http://localhost:9998/MovieTicketBooking");
+                MovieTicketInterface remoteObject = (MovieTicketInterface) Activator.GetObject(requiredType,
+                    "Http://localhost:9998/MovieTicketBooking");
 
-            Console.WriteLine(remoteObject.GetTicketStatus("Ticket No: 3344"));
+                Console.WriteLine(remoteObject.GetTicketStatus("Ticket No: 3344"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
     }
